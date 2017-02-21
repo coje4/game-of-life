@@ -210,4 +210,92 @@ describe('Game', function (){
 		expect(evolve(initialState)).toEqual(resultState);
 	});
 
+
+	it('5 x 3 - larger grid', function(){
+		var initialState = [
+			[0,0,0,0,0],
+			[1,1,1,1,1],
+			[0,0,0,0,0]
+		];
+
+		var resultState = [
+			[0,1,1,1,0],
+			[0,1,1,1,0],
+			[0,1,1,1,0]
+		];
+
+		expect(evolve(initialState)).toEqual(resultState);
+	});	
+
+	it('3 x 5 - larger grid', function(){
+		var initialState = [
+			[0,0,0],
+			[1,1,1],
+			[0,0,0],
+			[1,1,1],
+			[0,0,0]
+		];
+
+		var resultState = [
+			[0,1,0],
+			[0,1,0],
+			[0,0,0],
+			[0,1,0],
+			[0,1,0]
+		];
+
+		expect(evolve(initialState)).toEqual(resultState);
+	});	
+
+	// ============================ resilience tests ============================
+
+	it('string input instead of int - resilience 1', function(){
+		var initialState = [
+			['0','0','0'],
+			['1','1','1'],
+			['0','0','0']
+		];
+
+		var resultState = [
+			[0,1,0],
+			[0,1,0],
+			[0,1,0]
+		];
+
+		expect(evolve(initialState)).toEqual(resultState);
+	});	
+
+	it('missing cell input - resilience 2', function(){
+		var initialState = [
+			[0,0,0],
+			[1,1,1],
+			[0,0]
+		];
+
+		var resultState = [
+			[0,1,0],
+			[0,1,0],
+			[0,1]
+		];
+
+		expect(evolve(initialState)).toEqual(resultState);
+	});	
+		
+	it('missing cell input (top row) - resilience 3', function(){
+		var initialState = [
+			[0,0],
+			[1,1,1],
+			[0,0,0]
+		];
+
+		var resultState = [
+			[0,1],
+			[0,1,0],
+			[0,1,0]
+		];
+
+		expect(evolve(initialState)).toEqual(resultState);
+	});	
+
+
 });
