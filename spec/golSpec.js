@@ -149,11 +149,27 @@ describe('Game', function (){
 		expect(evolve(initialState)).toEqual(resultState);
 	});
 
-	it('Underpopulation 2 - Two cells die (left/center)', function(){
+	it('Underpopulation 9 - Two cells die (left/center)', function(){
 		var initialState = [
 			[0,0,0],
 			[1,1,0],
 			[0,0,0]
+		];
+
+		var resultState = [
+			[0,0,0],
+			[0,0,0],
+			[0,0,0]
+		];
+
+		expect(evolve(initialState)).toEqual(resultState);
+	});
+
+	it('Underpopulation 10 - Corners die', function(){
+		var initialState = [
+			[1,0,1],
+			[0,0,0],
+			[1,0,1]
 		];
 
 		var resultState = [
@@ -198,6 +214,39 @@ describe('Game', function (){
 
 		expect(evolve(initialState)).toEqual(resultState);
 	});
+
+	it('Overcrowding 3 - Full grid', function(){
+		var initialState = [
+			[1,1,1],
+			[1,1,1],
+			[1,1,1]
+		];
+
+		var resultState = [
+			[1,0,1],
+			[0,0,0],
+			[1,0,1]
+		];
+
+		expect(evolve(initialState)).toEqual(resultState);
+	});
+
+	it('Overcrowding 4 - Block of 5 cells', function(){
+		var initialState = [
+			[1,1,0],
+			[1,1,0],
+			[1,0,0]
+		];
+
+		var resultState = [
+			[1,1,0],
+			[0,0,0],
+			[1,1,0]
+		];
+
+		expect(evolve(initialState)).toEqual(resultState);
+	});
+
 // ============================ survival tests ============================
 
 	it('Survival 1 - Center survives', function(){
@@ -226,6 +275,38 @@ describe('Game', function (){
 		var resultState = [
 			[0,0,0],
 			[0,1,0],
+			[0,0,0]
+		];
+
+		expect(evolve(initialState)).toEqual(resultState);
+	});	
+
+	it('Survival 3 - Center survives (opposite diagonal line)', function(){
+		var initialState = [
+			[0,0,1],
+			[0,1,0],
+			[1,0,0]
+		];
+
+		var resultState = [
+			[0,0,0],
+			[0,1,0],
+			[0,0,0]
+		];
+
+		expect(evolve(initialState)).toEqual(resultState);
+	});	
+
+	it('Survival 4 - Square survives', function(){
+		var initialState = [
+			[1,1,0],
+			[1,1,0],
+			[0,0,0]
+		];
+
+		var resultState = [
+			[1,1,0],
+			[1,1,0],
 			[0,0,0]
 		];
 
@@ -452,7 +533,7 @@ describe('Game', function (){
 		expect(evolve(initialState)).toEqual(resultState);
 	});	
 			
-	it('Resilience 3 - Empty array (row)', function(){
+	it('Resilience 4 - Empty array (row)', function(){
 		var initialState = [
 			[0,0,0],
 			[1,1,1],
@@ -466,6 +547,18 @@ describe('Game', function (){
 			[0,1,0],
 			[]
 		];
+
+		expect(evolve(initialState)).toEqual(resultState);
+	});		
+
+	it('Resilience 5 - Incorrect cell value', function(){
+		var initialState = [
+			[0,0,0],
+			[1,1,2],
+			[0,0,0],
+		];
+
+		var resultState = 'Invalid Cell Value(s)';
 
 		expect(evolve(initialState)).toEqual(resultState);
 	});	
